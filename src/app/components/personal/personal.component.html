@@ -1,0 +1,79 @@
+<div class="container">
+<h1>LISTA DE PERSONAL</h1>
+<div class="filter_add">
+    <mat-form-field appearance="standard">
+        <mat-label>Buscar</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ejm:Perez" #input>
+    </mat-form-field>
+    <button mat-stroked-button color="primary" (click)="listarPersonal()">Refrescar</button>
+    <button mat-stroked-button color="primary" (click)="showDialog()">Crear Trabajador</button>
+</div>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  
+    <!-- Position Column -->
+    <ng-container matColumnDef="IdPersonal">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let element"> {{element.idPersonal}} </td>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="ApPaterno">
+      <th mat-header-cell *matHeaderCellDef>APELLIDO PAT.</th>
+      <td mat-cell *matCellDef="let element"> {{element.apPaterno}} </td>
+    </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="ApMaterno">
+      <th mat-header-cell *matHeaderCellDef>APELLIDO MAT.</th>
+      <td mat-cell *matCellDef="let element"> {{element.apMaterno}} </td>
+    </ng-container>
+  
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="Nombre1">
+      <th mat-header-cell *matHeaderCellDef>PRIM. NOMBRE</th>
+      <td mat-cell *matCellDef="let element"> {{element.nombre1}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Nombre2">
+        <th mat-header-cell *matHeaderCellDef>SEG. NOMBRE</th>
+        <td mat-cell *matCellDef="let element"> {{element.nombre2}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="NombreCompleto">
+        <th mat-header-cell *matHeaderCellDef>NOMBRES</th>
+        <td mat-cell *matCellDef="let element"> {{element.nombreCompleto}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="FchNac">
+        <th mat-header-cell *matHeaderCellDef>FCH. NAC.</th>
+        <td mat-cell *matCellDef="let element"> {{element.fchNac}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="FchIngreso">
+        <th mat-header-cell *matHeaderCellDef>FCH. INGRESO</th>
+        <td mat-cell *matCellDef="let element"> {{element.fchIngreso}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Accion" >
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;">ACCION</th>
+        <td mat-cell *matCellDef="let row" style="text-align: center;"> 
+            <a class="pointer">Ver Hijos</a>
+            <button mat-icon-button color="primary" type="button" name="button" [routerLink]="['/personal/form',row.idPersonal]" aria-label="Example icon button with a home icon">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="onDelete(row.idPersonal)" aria-label="Example icon button with a home icon">
+                <mat-icon>delete_forever</mat-icon>
+            </button>
+        </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+</div>
